@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&family=Source+Code+Pro&display=swap');
+
+body {
+    background-color: #f5f5f5;
+}
+
+.navbar {
+    background-color: #b0815e;
+    color:white
+}
+.page-name {
+    float:left;
+    font-size:1.2rem;
+    font-weight:bold;
+    margin-right:20px;
+}
+
+.product-container {
+    dispaly:flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh-56px); /* Adjust for the navbar height */
+
+}
+
+.product-card {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    max-width: 1400px;
+    padding:20px;
+    text-align: center;
+}
+
+.image-gallery {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.image-gallery img {
+    max-width: 300px;
+    max-height:300px;
+    margin-top:20px;
+    }
+    .product-info {
+        margin-top: 20px;
+    }
+    .price {
+        font-weight: bold;
+    }
