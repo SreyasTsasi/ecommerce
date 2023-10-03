@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&family=Source+Code+Pro&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html,
+body {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background-color: #ffffff;
+    font-family: 'Pixelify Sans', cursive;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #062edf;
+    width: 100%;
+}
+
+.navbar-left, .navbar-center, .navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.page-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.search-box {
+    padding: 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+}
+
+.product-cart, .user-icon {
+    font-size: 1.5em;
+    margin-left: 20px;
+}
+
+h1 {
+    color: white;
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1200px;
+}
+
+.product-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    width: calc(16.666% - 20px);
+    max-width: 200px;
+    height: 380px;
+    background-color: white;
+    text-align: center;
+    display: inline-block;
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+.price {
+    font-size: 1em;
+    margin-top: 5px;
+}
