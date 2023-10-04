@@ -3,80 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>product details</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="./product.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="product.css">
+    <title>Product Details</title>
 </head>
 <body>
-     
-     <nav class ="navbar">
-    <div class="container">
-<span class="page-name">Ecommerce Store</span>
+    <nav class="navbar">
+        <div class="navbar-left">
+          <span class="page-name"><img src="./logo.png" class="logo">Ecommerce Store</span>
+        </div>
+       <form class="navbar-right" role="search">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+        <div class="navbar-right">
+          <span class="product-cart">&#128722;</span>
+          <span class="user-icon">&#128100;</span>
+        </div>
+      </nav>
+    <!-- <div class="navbar">
+        <div class="container">
+            <span class="page-name">Ecommerce Store</span>
+        </div>
+    </div> -->
+    <div class="product-container">
+        <div class="product-card">
+            <div class="image-gallery">
+            <div class="product-info">
+                <h2>Title</h2>
+                <p>Brand: Brand Name</p>
+                <p>Category: Category Name</p>
+                <p>Product Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis a, soluta saepe ab et ipsum architecto quia. Quibusdam dolor, corrupti molestias inventore laborum nulla harum quam ab excepturi minus consequuntur!</p>
+                <p class="price">Price: $599</p>
+                <button class="btn btn-dark">Buy Now</button>
+                <button class="btn btn-dark add-to-cart" data-title="Product Title" data-price="99.99" data-image-url="product-image.jpg">Add to &#128722;</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div id="prod"></div>
+    <button class="btn btn-primary">Buy Now</button> 
+    <button class="btn btn-primary">Add to cart</button> Add the Buy Now button -->
+    <script>
+        const imageGallery = document.querySelector(".image-gallery");
+        const id =Number(window.location.search.split("id=")[1]);
+        // const prod = document.getElementById("prod");
+        // const id = Number(window.location.search.split("id=")[1]);
 
-    </div>  
-  </nav>
-
-              <div class="product-container">
-                <div class="product-card">
-                    <div class="image-gallery">
-                        <div class="product-info">
-                            <h2>Product title</h2>
-                            <p>Brand: Brand Name</p>
-                            <p>Category: Category Name</p>
-                            <p>Product Description: Lorem ipsum dolor sit amet,consectetur adipiscing elit.</p> 
-                            <p class ="price">Price: $99.99</p>
-                            <button class="btn btn-dark">Buy Now</button>
-                            <button class="btn btn-dark  add to cart" data-title="product Title" data-price="99.99" data-imagr-url="product-image.jpj">Add to &#128722;</button>
-</div>
-  </div>
-</div>
- </div>
-
- <script>
-
-    const imageGallery = document.querySelector(".image-gallery");
-    const id= Number(window.location.search.split("id=")[1]);
-
-    fetch(`https://dummyjson.com/products/${id}`)
+        fetch(`https://dummyjson.com/products/${id}`)
         .then(res => res.json())
         .then(data => {
-            //Create image elements for the first 4 images in the product
-data.images.slice(0,4).array.forEach(imageurl => {
-    const imageElement=document.createElement("img");
-    imageElement.src=imageUrl;
-    imageElement.alt=data.title;
-    imageGallery.appendChild(imageElement);
-})
-});
+            data.images.slice(0,4).forEach(imageUrl => {
+                const imageElement = document.createElement("img");
+                imageElement.src=imageUrl;
+                imageElement.alt = data.title;
+                imageGallery.appendChild(imageElement);
+                
+            });
+            document.querySelector("h2").textContent = data.title;
+            document.querySelector("product-info p:nth-child(2)").textContent = `Brand: ${data.brand}`;
+            document.querySelector("product-info p:nth-child(3)").textContent = `Category: ${data.category}`;
+            document.querySelector("product-info p:nth-child(4)").textContent = `Product Description: ${data.description}`;
+            document.querySelector(".price").textContent = `Price: $${data.price}`;
+        });
+        function addToCart(title,price,imageUrl) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({title,price,imageUrl});
+            localStorage.setItem('cart',JSON.stringify(cart));
+            
+        }
+        document.querySelector('.add-to-cart').addEventListener('click', () =>{
+            const title = document.querySelector("h2").textContent;
+            const price = parseFloat(document.querySelector(".price").textContent.replace('price: $',''));
+            const imageUrl = document.querySelector(".image-gallery img").src;
+            addToCart(title,price,imageUrl);
+            alert('Added to cart');
+        })
+function navigateToCart() {
+    window.location.href = 'cart.html';
+}
 
-// Update product details
-    document.querySelector("h2").textContent=data.title;
-    document.querySelector(".product-info p:nth-child(2)").textContent= `Brand:${data.brand}`;
-    document.querySelector(".product-info p:nth-child(3)").textContent=`Category:${data.category}`;
-    document.querySelector("product-info p:nth-child(4)").textContent=`Product Description: ${data.description}`;
-    document.querySelector(".price").textContent = ` Price: $${data.price}`;
-
-    // Function to add an item to the cart
-    function addTocart(title,price,imageUrl){
-    const cart= JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push({ title ,price,imageUrl});
-    localStorage.setItem('cart',JSON.stringify(cart));
-    }
-
-
-// Handle the "Add to Cart" button click event
-
-
-document.querySelector('.add-to-cart').addEventListener( 'click', () => {
-const title=document.querySelector("h2").textContent;
-const price=parseFloat(document.querySelector("h2").textContent;
-const imageUrl=document.querySelector(".image-gallery img").src;
-addTocart(title,price,imageUrl);
-alert('Item added to cart !');
-  
-});
-
- </script>
+document.querySelector('.add-to-cart').addEventListener('click', () => {
+    const title = document.querySelector("h2").textContent;
+    const price = parseFloat(document.querySelector(".price").textContent.replace('Price: $', ''));
+    const imageUrl = document.querySelector(".image-gallery img").src;
     
+    addToCart(title, price, imageUrl);
+    navigateToCart(); 
+});
+
+        //     const productDetails = `
+        //         <h2>${data.title}</h2>
+        //         <img src="${data.thumbnail}" alt="${data.title}">
+        //         <p>${data.description}</p>
+        //         <p>Price: $${data.price}</p>
+        //     `;
+        //     prod.innerHTML = productDetails;
+        // });
+    </script>
 </body>
 </html>
